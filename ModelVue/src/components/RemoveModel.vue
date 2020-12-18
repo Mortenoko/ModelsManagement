@@ -3,15 +3,17 @@
     <div id="remModel">
         <h1>Remove Model</h1>
 
-        <form v-on:submit="removeModel">
+        <form v-on:submit="removeModel" @submit.prevent="false">
 
             <label for="jobId"> Job ID: </label>
-            <input type="text" id="jobId" name="jId" v-model="jobId" placeholder="Job ID" value="" required />
+            <input type="number" id="jobId" name="modelId" v-model="jobId" placeholder="Job ID" value="" required />
             <br />
 
             <label for="modelId"> Model ID: </label>
-            <input type="text" id="modelId" name="mId" v-model="modelId" placeholder="Model ID" value="" required />
+            <input type="number" id="modelId" name="modelId" v-model="modelId" placeholder="Model ID" value="" required />
             <br />
+
+            <button type="submit">submit</button>
 
         </form>
 
@@ -30,9 +32,8 @@
         },
         methods: {
             async removeModel() {
-                let url = "https://localhost:44368/api/Jobs/" + this.jobId + "/model/" + this.modelId;
                 try {
-                    let response = await fetch(url,
+                    let response = await fetch('http://localhost:5001/api/Jobs/${this.jobId}/model/${this.modelId}',
                         {
                             method: "DELETE",
                             body: JSON.stringify(this.model),
@@ -43,9 +44,9 @@
 
                         });
                     if (response.ok) {
-                        let token = await response.json();
+                        /*let token = await response.json();
                         localStorage.setItem("token", token.jwt);
-                        this.Token = localStorage.getItem("token")
+                        this.Token = localStorage.getItem("token")*/
                     }
                     else {
                         alert("Server error: " + response.statusText);

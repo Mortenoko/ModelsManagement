@@ -31,9 +31,8 @@
 
         methods: {
             async JobList() {
-                let url = "https://localhost:44368/api/Jobs";
                 try {
-                    let response = await fetch(url,
+                    let response = await fetch('https://localhost:44368/api/Jobs',
                         {
                             method: "GET",
                             headers: new Headers({
